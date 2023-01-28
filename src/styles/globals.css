@@ -12,6 +12,8 @@ body {
 	max-height: 100vh;
 	overflow-x: hidden;
 	font-family: 'Poppins';
+	background-color: #000;
+	height: 100vh;
 }
 
 a {
