@@ -7,9 +7,9 @@ import {
 	Burger,
 	Paper,
 	Transition,
+	Text,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Text } from '@mantine/core';
 
 const HEADER_HEIGHT = 60;
 
@@ -17,8 +17,8 @@ const useStyles = createStyles((theme) => ({
 	root: {
 		position: 'relative',
 		zIndex: 1,
-		backgroundColor: '#2F9834',
-		borderBottomWidth: 0,
+		backgroundColor: '#171717',
+		borderBlockWidth: '0',
 	},
 
 	dropdown: {
@@ -41,7 +41,6 @@ const useStyles = createStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-
 		height: '100%',
 	},
 
@@ -63,15 +62,16 @@ const useStyles = createStyles((theme) => ({
 		padding: '8px 12px',
 		borderRadius: theme.radius.sm,
 		textDecoration: 'none',
-		color: '#111',
+		color: theme.colors.dark[0],
 		fontSize: theme.fontSizes.sm,
 		fontWeight: 500,
 
 		'&:hover': {
-			backgroundColor: 'rgba(10, 10, 10, 0.3)',
+			backgroundColor: 'rgba(23, 90, 145, 0.3)',
 		},
 
 		[theme.fn.smallerThan('sm')]: {
+			color: '#111',
 			borderRadius: 0,
 			padding: theme.spacing.md,
 		},
@@ -79,8 +79,9 @@ const useStyles = createStyles((theme) => ({
 
 	linkActive: {
 		'&, &:hover': {
-			backgroundColor: 'rgba(10, 10, 10, 0.6)',
-			color: 'rgba(255,255,255,0.6)',
+			backgroundColor: 'rgba(23, 90, 145, 0.5)',
+			color: theme.fn.variant({ variant: 'light', color: theme.primaryColor })
+				.color,
 		},
 	},
 }));
@@ -114,7 +115,7 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 	return (
 		<Header height={HEADER_HEIGHT} mb={60} className={classes.root}>
 			<Container className={classes.header}>
-				<Text sx={{ fontSize: '30px', color: '#111', fontWeight: 600 }}>
+				<Text sx={{ color: '#fff', fontSize: '30px', fontWeight: 700 }}>
 					DevTalk
 				</Text>
 				<Group spacing={5} className={classes.links}>
