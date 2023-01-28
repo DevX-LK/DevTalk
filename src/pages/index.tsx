@@ -1,8 +1,6 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
-import styles from '@/styles/Home.module.css';
-import { Grid } from '@mantine/core';
+import Menu from '@/Components/Menu/Menu';
+import Posts from '@/Components/Posts/Posts';
+import { Button, Grid } from '@mantine/core';
 
 export default function Home() {
 	return (
@@ -10,24 +8,37 @@ export default function Home() {
 			<Grid.Col
 				span={'auto'}
 				sx={{
-					backgroundColor: '#171717',
-					minHeight: 600,
-					borderRadius: '10px',
+					marginLeft: '2rem',
 				}}
-				m="lg"
 			>
-				Posts
+				<Posts />
 			</Grid.Col>
 			<Grid.Col
 				span={2}
 				sx={{
-					backgroundColor: '#171717',
-					minHeight: 600,
-					borderRadius: '10px',
+					marginRight: '2rem',
 				}}
-				m="lg"
 			>
-				Menu
+				<Button
+					variant="outline"
+					sx={{
+						width: '100%',
+						height: '',
+						'&:hover': { background: 'rgb(23, 90, 170)', color: '#fff' },
+					}}
+				>
+					Create Post
+				</Button>
+				<Grid.Col
+					span={'auto'}
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+					}}
+					mt="lg"
+				>
+					<Menu />
+				</Grid.Col>
 			</Grid.Col>
 		</Grid>
 	);
