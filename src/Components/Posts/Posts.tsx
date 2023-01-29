@@ -1,5 +1,9 @@
 import { Grid, Text } from '@mantine/core';
 import Image from 'next/image';
+import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
+import { MdComment } from 'react-icons/md';
+import { BsBookmark } from 'react-icons/bs';
+import { createStyles } from '@mantine/core';
 
 const PostsData = [
 	{
@@ -47,7 +51,42 @@ const PostsData = [
 	},
 ];
 
+const useStyles = createStyles({
+	likeContainer: {
+		marginLeft: '2.5rem',
+		padding: '4px',
+		borderRadius: '5px',
+		display: 'flex',
+		alignItems: 'center',
+		'&:hover': {
+			backgroundColor: 'rgba(8, 8 ,8, 0.4)',
+		},
+	},
+	commentContainer: {
+		marginLeft: '1rem',
+		padding: '6px',
+		borderRadius: '5px',
+		display: 'flex',
+		alignItems: 'center',
+		'&:hover': {
+			backgroundColor: 'rgba(8, 8 ,8, 0.4)',
+		},
+	},
+	savePost: {
+		display: 'flex',
+		padding: '8px',
+		borderRadius: '5px',
+		alignItems: 'center',
+		marginRight: '0.5rem',
+		'&:hover': {
+			backgroundColor: 'rgba(8, 8 ,8, 0.4)',
+		},
+	},
+});
+
 const Posts = () => {
+	const { classes, cx } = useStyles();
+
 	return (
 		<>
 			{PostsData.map((post) => (
@@ -89,8 +128,23 @@ const Posts = () => {
 							alignContent: 'center',
 						}}
 					>
-						<div>
-							<div></div>
+						<div style={{ display: 'flex', alignItems: 'center' }}>
+							<div className={classes.likeContainer}>
+								<AiOutlineHeart />
+								<Text sx={{ fontSize: '12px', marginLeft: '4px' }}>
+									06 Likes
+								</Text>
+							</div>
+							<div className={classes.commentContainer}>
+								<MdComment />
+								<Text sx={{ fontSize: '12px', marginLeft: '4px' }}>
+									03 Comments
+								</Text>
+							</div>
+						</div>
+
+						<div className={classes.savePost}>
+							<BsBookmark />
 						</div>
 					</Grid.Col>
 				</Grid.Col>
