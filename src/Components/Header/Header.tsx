@@ -8,6 +8,7 @@ import {
 	Paper,
 	Transition,
 	Text,
+	Button,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
@@ -84,6 +85,13 @@ const useStyles = createStyles((theme) => ({
 				.color,
 		},
 	},
+	registerBtn: {
+		'&:hover': {
+			background: 'rgb(23, 90, 170)',
+			borderColor: 'rgb(23, 90, 170)',
+			color: '#fff',
+		},
+	},
 }));
 
 interface HeaderResponsiveProps {
@@ -119,7 +127,13 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 					DevTalk
 				</Text>
 				<Group spacing={5} className={classes.links}>
-					{items}
+					{/* {items} */}
+					<Button variant="outline" className={classes.registerBtn}>
+						Login
+					</Button>
+					<Button variant="outline" className={classes.registerBtn}>
+						Register
+					</Button>
 				</Group>
 
 				<Burger
