@@ -1,3 +1,5 @@
+import Login from '@/Components/Register/Login';
+import Signup from '@/Components/Register/Signup';
 import { createStyles, Grid } from '@mantine/core';
 import { useState } from 'react';
 
@@ -23,18 +25,21 @@ const register = () => {
 			sx={{
 				display: 'flex',
 				justifyContent: 'center',
+				alignItems: 'center',
 				overflow: 'hidden',
 			}}
 		>
 			<Grid.Col span={12} sx={{ display: 'flex', justifyContent: 'center' }}>
 				<Grid.Col
-					span={4}
+					span={'content'}
 					sx={{
 						backgroundColor: '#171717',
 						borderRadius: '5px',
 						display: 'flex',
 						padding: 0,
 						overflow: 'hidden',
+						width: '380px',
+						'@media (max-width: 728px)': { width: '370px' },
 					}}
 				>
 					<Grid.Col
@@ -57,8 +62,18 @@ const register = () => {
 					</Grid.Col>
 				</Grid.Col>
 			</Grid.Col>
-			<Grid.Col span={4} sx={{ backgroundColor: '#171717' }}>
-				{/* form here */}
+			<Grid.Col
+				span="content"
+				sx={{
+					backgroundColor: '#171717',
+					marginTop: '2rem',
+					width: '380px',
+					borderRadius: '5px',
+					height: '450px',
+					'@media (max-width: 728px)': { width: '370px' },
+				}}
+			>
+				{activeTab === 'register' ? <Signup /> : <Login />}
 			</Grid.Col>
 		</Grid>
 	);
