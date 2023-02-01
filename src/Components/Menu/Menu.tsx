@@ -1,4 +1,5 @@
 import { Button, Text } from '@mantine/core';
+import Link from 'next/link';
 import {
 	FcHome,
 	FcAbout,
@@ -33,6 +34,7 @@ const Menu = () => {
 							background: 'rgba(23, 90, 145, 0.5)',
 						},
 					}}
+					key={link.label}
 				>
 					{link.label}
 					<Text
