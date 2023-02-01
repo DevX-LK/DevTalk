@@ -11,6 +11,7 @@ import {
 	Button,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import Link from 'next/link';
 
 const HEADER_HEIGHT = 60;
 
@@ -128,12 +129,16 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 				</Text>
 				<Group spacing={5} className={classes.links}>
 					{/* {items} */}
-					<Button variant="outline" className={classes.registerBtn}>
-						Login
-					</Button>
-					<Button variant="outline" className={classes.registerBtn}>
-						Register
-					</Button>
+					<Link href={'/register'}>
+						<Button variant="outline" className={classes.registerBtn}>
+							Login
+						</Button>
+					</Link>
+					<Link href={'/register'}>
+						<Button variant="outline" className={classes.registerBtn}>
+							Register
+						</Button>
+					</Link>
 				</Group>
 
 				<Burger
@@ -141,6 +146,7 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 					onClick={toggle}
 					className={classes.burger}
 					size="sm"
+					color="#fff"
 				/>
 
 				<Transition transition="pop-top-right" duration={200} mounted={opened}>
