@@ -94,6 +94,7 @@ const Posts = () => {
 					span={'auto'}
 					sx={{ backgroundColor: '#171717', borderRadius: '8px' }}
 					mb="lg"
+					key={post.title}
 				>
 					<Grid.Col span={12} sx={{ display: 'flex', alignItems: 'center' }}>
 						<Image
