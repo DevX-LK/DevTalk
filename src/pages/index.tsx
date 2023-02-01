@@ -1,6 +1,6 @@
 import Menu from '@/Components/Menu/Menu';
 import Posts from '@/Components/Posts/Posts';
-import { Button, Grid } from '@mantine/core';
+import { Button, Grid, MediaQuery } from '@mantine/core';
 
 export default function Home() {
 	return (
@@ -9,6 +9,9 @@ export default function Home() {
 				span={'auto'}
 				sx={{
 					marginLeft: '2rem',
+					'@media (max-width: 728px)': {
+						margin: '1rem',
+					},
 				}}
 			>
 				<Posts />
@@ -17,6 +20,9 @@ export default function Home() {
 				span={2}
 				sx={{
 					marginRight: '2rem',
+					'@media (max-width: 728px)': {
+						display: 'none',
+					},
 				}}
 			>
 				<Button
