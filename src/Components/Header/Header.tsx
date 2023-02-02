@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
+import { NavbarSimple } from '../Navbar/Navbar';
 
 const HEADER_HEIGHT = 60;
 
@@ -25,14 +26,16 @@ const useStyles = createStyles((theme) => ({
 
 	dropdown: {
 		position: 'absolute',
-		top: HEADER_HEIGHT,
+		top: 0,
 		left: 0,
-		right: 0,
+		right: '4rem',
 		zIndex: 0,
+		height: '100vh',
 		borderTopRightRadius: 0,
 		borderTopLeftRadius: 0,
 		borderTopWidth: 0,
 		overflow: 'hidden',
+		background: '#171717',
 
 		[theme.fn.largerThan('sm')]: {
 			display: 'none',
@@ -129,12 +132,12 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 				</Text>
 				<Group spacing={5} className={classes.links}>
 					{/* {items} */}
-					<Link href={'/register'}>
+					<Link href={'/Register'}>
 						<Button variant="outline" className={classes.registerBtn}>
 							Login
 						</Button>
 					</Link>
-					<Link href={'/register'}>
+					<Link href={'/Register'}>
 						<Button variant="outline" className={classes.registerBtn}>
 							Register
 						</Button>
@@ -149,10 +152,10 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 					color="#fff"
 				/>
 
-				<Transition transition="pop-top-right" duration={200} mounted={opened}>
+				<Transition transition="pop-top-left" duration={200} mounted={opened}>
 					{(styles) => (
-						<Paper className={classes.dropdown} withBorder style={styles}>
-							{items}
+						<Paper className={classes.dropdown} style={styles}>
+							<NavbarSimple />
 						</Paper>
 					)}
 				</Transition>
