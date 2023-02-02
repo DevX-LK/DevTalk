@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
-const register = () => {
+const Register = () => {
 	const { classes, cx } = useStyles();
 	const [activeTab, setActiveTab] = useState('register');
 
@@ -79,7 +79,7 @@ const register = () => {
 	);
 };
 
-export default register;
+export default Register;
 
 /* const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
