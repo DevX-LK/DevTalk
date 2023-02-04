@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 
 const useStyles = createStyles({
 	input: {
-		margin: ' 0 0 20px 0',
+		margin: '0 0 20px 0',
+		background: 'transparent',
 	},
 	form: {
 		padding: '1rem',
