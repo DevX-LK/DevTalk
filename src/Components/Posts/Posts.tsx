@@ -49,6 +49,28 @@ const PostsData = [
 			},
 		],
 	},
+	{
+		user: {
+			name: 'Oshadha',
+			avatar:
+				'https://image.binance.vision/editor-uploads-original/9c15d9647b9643dfbc5e522299d13593.png',
+		},
+		timestamp: '26-01-2023',
+		banner:
+			'https://res.cloudinary.com/practicaldev/image/fetch/s--p2vPapJU--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pinwifhk5e3m4kitgb9g.png',
+		title: 'What is Node js ?',
+		content:
+			'Node Js is a framework for running javascript out of the browser using V8 engine',
+		comments: [
+			{
+				user: {
+					name: 'Shiro',
+					avatar: 'https://api.dicebear.com/5.x/adventurer/svg?seed=Annie',
+				},
+				comment: 'Thanks!',
+			},
+		],
+	},
 ];
 
 const useStyles = createStyles({
