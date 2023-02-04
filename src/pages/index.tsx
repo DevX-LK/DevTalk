@@ -1,3 +1,4 @@
+import { FooterLinks } from '@/Components/Footer/Footer';
 import Menu from '@/Components/Menu/Menu';
 import Posts from '@/Components/Posts/Posts';
 import { Button, Grid, MediaQuery } from '@mantine/core';
@@ -45,6 +46,17 @@ export default function Home() {
 				>
 					<Menu />
 				</Grid.Col>
+				<FooterLinks
+					data={[
+						{
+							title: 'DevTalk',
+							links: [
+								{ link: '/', label: 'Home' },
+								{ link: '/About', label: 'About' },
+							],
+						},
+					]}
+				/>
 			</Grid.Col>
 		</Grid>
 	);
