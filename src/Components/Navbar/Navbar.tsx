@@ -8,6 +8,7 @@ import {
 	FcBookmark,
 	FcCustomerSupport,
 } from 'react-icons/fc';
+import { FooterLinks } from '../Footer/Footer';
 
 const useStyles = createStyles((theme, _params, getRef) => {
 	const icon = getRef('icon');
@@ -23,13 +24,12 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		footer: {
-			paddingTop: theme.spacing.md,
-			marginTop: theme.spacing.md,
-			borderTop: `1px solid ${
-				theme.colorScheme === 'dark'
-					? theme.colors.dark[4]
-					: theme.colors.gray[2]
-			}`,
+			// paddingTop: theme.spacing.md,
+			// marginTop: theme.spacing.md,
+			position: 'absolute',
+			bottom: '0',
+			right: '0',
+			left: '0',
 		},
 
 		link: {
@@ -135,7 +135,19 @@ export function NavbarSimple() {
 				{links}
 			</Navbar.Section>
 
-			<Navbar.Section className={classes.footer}>DevTalk</Navbar.Section>
+			<Navbar.Section className={classes.footer}>
+				<FooterLinks
+					data={[
+						{
+							title: 'DevTalk',
+							links: [
+								{ link: '/', label: 'Home' },
+								{ link: '/About', label: 'About' },
+							],
+						},
+					]}
+				/>
+			</Navbar.Section>
 		</Navbar>
 	);
 }
