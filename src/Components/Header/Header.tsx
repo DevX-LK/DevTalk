@@ -132,7 +132,7 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 					DevTalk
 				</Text>
 				<Group spacing={5} className={classes.links}>
-					{localStorage.getItem('user') ? (
+					{typeof window !== 'undefined' && localStorage.getItem('user') ? (
 						<Button
 							variant="outline"
 							onClick={() => {
