@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createStyles, Navbar, Group, Code, Text } from '@mantine/core';
+import { createStyles, Navbar, Group, Code, Text, Button } from '@mantine/core';
 import {
 	FcHome,
 	FcAbout,
@@ -9,6 +9,7 @@ import {
 	FcCustomerSupport,
 } from 'react-icons/fc';
 import { FooterLinks } from '../Footer/Footer';
+import { toast } from 'react-toastify';
 
 const useStyles = createStyles((theme, _params, getRef) => {
 	const icon = getRef('icon');
@@ -131,6 +132,24 @@ export function NavbarSimple() {
 					<Text sx={{ color: '#fff', fontSize: '28px', fontWeight: 700 }}>
 						DevTalk
 					</Text>
+					<Button
+						variant="outline"
+						onClick={() => {
+							localStorage.removeItem('user');
+							toast.success('Logged out!', {
+								position: 'bottom-right',
+								autoClose: 5000,
+								hideProgressBar: false,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: true,
+								progress: undefined,
+								theme: 'dark',
+							});
+						}}
+					>
+						Logout
+					</Button>
 				</Group>
 				{links}
 			</Navbar.Section>
