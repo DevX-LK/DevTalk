@@ -13,6 +13,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
 import { NavbarSimple } from '../Navbar/Navbar';
+import { toast } from 'react-toastify';
 
 const HEADER_HEIGHT = 60;
 
@@ -131,17 +132,39 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 					DevTalk
 				</Text>
 				<Group spacing={5} className={classes.links}>
-					{/* {items} */}
-					<Link href={'/Register'}>
-						<Button variant="outline" className={classes.registerBtn}>
-							Login
+					{localStorage.getItem('user') ? (
+						<Button
+							variant="outline"
+							onClick={() => {
+								localStorage.removeItem('user');
+								toast.success('Logged out!', {
+									position: 'bottom-right',
+									autoClose: 5000,
+									hideProgressBar: false,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									theme: 'dark',
+								});
+							}}
+						>
+							Logout
 						</Button>
-					</Link>
-					<Link href={'/Register'}>
-						<Button variant="outline" className={classes.registerBtn}>
-							Register
-						</Button>
-					</Link>
+					) : (
+						<>
+							<Link href={'/Register'}>
+								<Button variant="outline" className={classes.registerBtn}>
+									Login
+								</Button>
+							</Link>
+							<Link href={'/Register'}>
+								<Button variant="outline" className={classes.registerBtn}>
+									Register
+								</Button>
+							</Link>
+						</>
+					)}
 				</Group>
 
 				<Burger
