@@ -3,10 +3,15 @@ import Menu from '@/Components/Menu/Menu';
 import Posts from '@/Components/Posts/Posts';
 import { Button, Grid } from '@mantine/core';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Home() {
 	const router = useRouter();
-	localStorage.getItem('user') ? router.push('/') : router.push('/Register');
+
+	useEffect(() => {
+		localStorage.getItem('user') ? router.push('/') : router.push('/Register');
+	}, []);
+
 	return (
 		<Grid>
 			<Grid.Col
