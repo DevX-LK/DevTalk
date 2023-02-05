@@ -10,7 +10,7 @@ export default function Home() {
 
 	useEffect(() => {
 		localStorage.getItem('user') ? router.push('/') : router.push('/Register');
-	}, []);
+	}, [router]);
 
 	return (
 		<Grid>
