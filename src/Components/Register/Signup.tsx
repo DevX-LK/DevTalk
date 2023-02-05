@@ -1,9 +1,6 @@
 import { Button, createStyles, Input } from '@mantine/core';
 import { useForm } from 'react-hook-form';
-import {
-	getAuth,
-	createUserWithEmailAndPassword,
-} from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import app from '@/firebase.config';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
@@ -51,7 +48,12 @@ const Signup = () => {
 			onSubmit={handleSubmit((data: any) => {
 				createUserWithEmailAndPassword(auth, data.email, data.password)
 					.then((userCredentials) => {
-						localStorage.setItem('user', JSON.stringify(userCredentials.user));
+						typeof window !== 'undefined' &&
+							localStorage.setItem(
+								'user',
+								JSON.stringify(userCredentials.user),
+							);
+
 						toast.success('User created!', {
 							position: 'bottom-right',
 							autoClose: 5000,
