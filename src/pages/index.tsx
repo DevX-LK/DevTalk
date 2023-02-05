@@ -1,9 +1,12 @@
 import { FooterLinks } from '@/Components/Footer/Footer';
 import Menu from '@/Components/Menu/Menu';
 import Posts from '@/Components/Posts/Posts';
-import { Button, Grid, MediaQuery } from '@mantine/core';
+import { Button, Grid } from '@mantine/core';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+	const router = useRouter();
+	localStorage.getItem('user') ? router.push('/') : router.push('/Register');
 	return (
 		<Grid>
 			<Grid.Col
