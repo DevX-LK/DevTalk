@@ -1,5 +1,11 @@
 import { Button, createStyles, Input, TextInput } from '@mantine/core';
 import { useForm } from 'react-hook-form';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import app from '@/firebase.config';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+
+const auth = getAuth(app);
 
 const useStyles = createStyles({
 	input: {
@@ -33,11 +39,32 @@ const Login = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+	const router = useRouter();
 	const { classes, cx } = useStyles();
 
 	return (
 		<form
-			onSubmit={handleSubmit((data) => console.log(data))}
+			onSubmit={handleSubmit((data: any) => {
+				signInWithEmailAndPassword(auth, data.email, data.password)
+					.then((userCredentials) => {
+						localStorage.setItem('user', JSON.stringify(userCredentials.user));
+						toast.success('Logged In!', {
+							position: 'bottom-right',
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: 'dark',
+						});
+						router.push('/');
+					})
+					.catch((error) => {
+						console.log(error);
+						toast.error('Invalid credentials!');
+					});
+			})}
 			className={classes.form}
 		>
 			<label className={classes.inputLabel}>Email :</label>
