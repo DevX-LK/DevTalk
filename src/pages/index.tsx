@@ -4,7 +4,6 @@ import Posts from '@/Components/Posts/Posts';
 import { Button, Grid } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-aa
 export default function Home() {
 	const router = useRouter();
 
@@ -14,7 +13,7 @@ export default function Home() {
 
 	return (
 		<Grid>
-			<Grid.Cl
+			<Grid.Col
 				span={'auto'}
 				sx={{
 					marginLeft: '2rem',
