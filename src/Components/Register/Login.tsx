@@ -47,7 +47,11 @@ const Login = () => {
 			onSubmit={handleSubmit((data: any) => {
 				signInWithEmailAndPassword(auth, data.email, data.password)
 					.then((userCredentials) => {
-						localStorage.setItem('user', JSON.stringify(userCredentials.user));
+						typeof window !== 'undefined' &&
+							localStorage.setItem(
+								'user',
+								JSON.stringify(userCredentials.user),
+							);
 						toast.success('Logged In!', {
 							position: 'bottom-right',
 							autoClose: 5000,
