@@ -4,11 +4,12 @@ import Posts from '@/Components/Posts/Posts';
 import { Button, Grid } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
 export default function Home() {
 	const router = useRouter();
 
 	useEffect(() => {
-		localStorage.getItem('user') ? router.push('/') : router.push('/register');
+		localStorage.getItem('user') ? router.push('/') : router.push('/Register');
 	}, [router]);
 
 	return (
