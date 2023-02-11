@@ -137,7 +137,8 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 							variant="outline"
 							onClick={() => {
 								if (typeof window !== 'undefined') {
-									localStorage.removeItem('user');
+									localStorage.getItem('user') &&
+										localStorage.removeItem('user');
 								}
 								toast.success('Logged out!', {
 									position: 'bottom-right',
@@ -154,6 +155,7 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 							Logout
 						</Button>
 					) : (
+						// <Group></Group>
 						<>
 							<Link href={'/Register'}>
 								<Button variant="outline" className={classes.registerBtn}>
