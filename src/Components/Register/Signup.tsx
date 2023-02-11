@@ -1,11 +1,14 @@
 import { Button, createStyles, Input } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import app from '@/firebase.config';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import Jwt from 'jsonwebtoken';
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const useStyles = createStyles({
 	input: {
@@ -34,6 +37,13 @@ const useStyles = createStyles({
 	},
 });
 
+// Generate JWT
+const generateToken = (id: string) => {
+	return Jwt.sign({ id }, process.env.NEXT_PUBLIC_JWT_SECRET || '', {
+		expiresIn: '30d',
+	});
+};
+
 const Signup = () => {
 	const {
 		register,
@@ -47,12 +57,17 @@ const Signup = () => {
 		<form
 			onSubmit={handleSubmit((data: any) => {
 				createUserWithEmailAndPassword(auth, data.email, data.password)
-					.then((userCredentials) => {
+					.then(async (userCredentials) => {
 						typeof window !== 'undefined' &&
 							localStorage.setItem(
 								'user',
 								JSON.stringify(userCredentials.user),
 							);
+
+						await setDoc(doc(db, 'users', userCredentials.user.uid), {
+							...userCredentials.user,
+							token: generateToken(userCredentials.user.uid),
+						});
 
 						toast.success('User created!', {
 							position: 'bottom-right',
@@ -68,7 +83,7 @@ const Signup = () => {
 					})
 					.catch((error) => {
 						console.log(error);
-						toast.error('Email already exist!');
+						toast.error(`${error}`);
 					});
 			})}
 			className={classes.form}
