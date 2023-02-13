@@ -8,6 +8,7 @@ import {
 	FcBookmark,
 	FcCustomerSupport,
 } from 'react-icons/fc';
+import { Grid } from '@mantine/core';
 
 const MenuItems = [
 	{ label: 'Home', link: '/', icon: <FcHome /> },
@@ -20,7 +21,14 @@ const MenuItems = [
 
 const Menu = () => {
 	return (
-		<>
+		<Grid.Col
+			span={'auto'}
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+			}}
+			mt="lg"
+		>
 			{MenuItems.map((link) => (
 				<Button
 					sx={{
@@ -49,7 +57,7 @@ const Menu = () => {
 					</Text>
 				</Button>
 			))}
-		</>
+		</Grid.Col>
 	);
 };
 export default Menu;
