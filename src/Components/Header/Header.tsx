@@ -132,43 +132,30 @@ export function HeaderBar({ links }: HeaderResponsiveProps) {
 					DevTalk
 				</Text>
 				<Group spacing={5} className={classes.links}>
-					{typeof window !== 'undefined' && localStorage.getItem('user') ? (
-						<Button
-							variant="outline"
-							onClick={() => {
-								if (typeof window !== 'undefined') {
-									localStorage.getItem('user') &&
-										localStorage.removeItem('user');
-								}
-								toast.success('Logged out!', {
-									position: 'bottom-right',
-									autoClose: 5000,
-									hideProgressBar: false,
-									closeOnClick: true,
-									pauseOnHover: true,
-									draggable: true,
-									progress: undefined,
-									theme: 'dark',
-								});
-							}}
-						>
-							Logout
-						</Button>
-					) : (
-						// <Group></Group>
-						<>
-							<Link href={'/Register'}>
-								<Button variant="outline" className={classes.registerBtn}>
-									Login
-								</Button>
-							</Link>
-							<Link href={'/Register'}>
-								<Button variant="outline" className={classes.registerBtn}>
-									Register
-								</Button>
-							</Link>
-						</>
-					)}
+					<Button
+						variant="outline"
+						onClick={() => {
+							if (typeof window !== 'undefined') {
+								localStorage.removeItem('user');
+							}
+							toast.success('Logged out!', {
+								position: 'bottom-right',
+								autoClose: 5000,
+								hideProgressBar: false,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: true,
+								progress: undefined,
+								theme: 'dark',
+							});
+						}}
+						disabled={
+							typeof window !== 'undefined' &&
+							(localStorage.getItem('user') ? false : true)
+						}
+					>
+						Logout
+					</Button>
 				</Group>
 
 				<Burger
