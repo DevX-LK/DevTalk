@@ -57,17 +57,20 @@ const Signup = () => {
 		<form
 			onSubmit={handleSubmit((data: any) => {
 				createUserWithEmailAndPassword(auth, data.email, data.password)
-					.then(async (userCredentials) => {
+					.then(async (userCredentials: any) => {
+						const userDocRef = await setDoc(
+							doc(db, 'users', userCredentials.user.uid),
+							{
+								_id: userCredentials.user.uid,
+								email: userCredentials.user.email,
+								// token: generateToken(userCredentials.user.uid),
+							},
+						);
 						typeof window !== 'undefined' &&
 							localStorage.setItem(
 								'user',
 								JSON.stringify(userCredentials.user),
 							);
-
-						await setDoc(doc(db, 'users', userCredentials.user.uid), {
-							...userCredentials.user,
-							token: generateToken(userCredentials.user.uid),
-						});
 
 						toast.success('User created!', {
 							position: 'bottom-right',
@@ -81,7 +84,7 @@ const Signup = () => {
 						});
 						router.push('/');
 					})
-					.catch((error) => {
+					.catch((error: any) => {
 						console.log(error);
 						toast.error(`${error}`);
 					});
