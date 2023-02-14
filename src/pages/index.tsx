@@ -17,7 +17,7 @@ export default function Home() {
 			<Grid.Col
 				span={'auto'}
 				sx={{
-					marginLeft: '2rem',
+					marginLeft: '1rem',
 					'@media (max-width: 728px)': {
 						margin: '1rem',
 					},
@@ -28,7 +28,7 @@ export default function Home() {
 			<Grid.Col
 				span={2}
 				sx={{
-					marginRight: '2rem',
+					marginRight: '1rem',
 					'@media (max-width: 728px)': {
 						display: 'none',
 					},
