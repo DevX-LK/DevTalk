@@ -10,7 +10,7 @@ import { FaDiscord } from 'react-icons/fa';
 
 const useStyles = createStyles((theme) => ({
 	footer: {
-		marginTop: 80,
+		marginTop: 100,
 		paddingTop: theme.spacing.xl * 2,
 		paddingBottom: theme.spacing.xl * 2,
 		backgroundColor: '#000',
@@ -75,8 +75,8 @@ const useStyles = createStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		marginTop: theme.spacing.xl,
-		paddingTop: theme.spacing.xl,
+		marginTop: theme.spacing.sm,
+		paddingTop: theme.spacing.sm,
 		paddingBottom: theme.spacing.xl,
 		textAlign: 'center',
 	},
@@ -121,7 +121,14 @@ export function FooterLinks({ data }: FooterLinksProps) {
 		<footer className={classes.footer}>
 			<Container className={classes.inner}>
 				<div className={classes.logo}>
-					<Text sx={{ color: '#fff', fontSize: '28px', fontWeight: 700 }}>
+					<Text
+						sx={{
+							color: '#fff',
+							fontSize: '28px',
+							fontWeight: 700,
+							opacity: '70%',
+						}}
+					>
 						DevTalk
 					</Text>
 					<Text size="xs" color="dimmed" className={classes.description}>
