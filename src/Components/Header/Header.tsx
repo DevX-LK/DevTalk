@@ -11,9 +11,9 @@ import {
 	Button,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import Link from 'next/link';
 import { NavbarSimple } from '../Navbar/Navbar';
 import { toast } from 'react-toastify';
+import {useRouter} from 'next/router'
 
 const HEADER_HEIGHT = 60;
 
