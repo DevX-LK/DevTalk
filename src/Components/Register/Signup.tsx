@@ -59,7 +59,7 @@ const Signup = () => {
 				createUserWithEmailAndPassword(auth, data.email, data.password)
 					.then(async (userCredentials: any) => {
 						const userDocRef = await setDoc(
-							doc(db, 'users', userCredentials.user.uid),
+							doc(db, 'Users', userCredentials.user.uid),
 							{
 								_id: userCredentials.user.uid,
 								email: userCredentials.user.email,
