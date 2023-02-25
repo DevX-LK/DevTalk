@@ -1,5 +1,13 @@
-import { Button, Grid, Input, createStyles } from '@mantine/core';
-import { useForm } from 'react-hook-form';
+import { Button, Grid, createStyles } from '@mantine/core';
+import { useState } from 'react';
+import app from '@/firebase.config';
+import { getFirestore, doc, setDoc, Timestamp } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+
+const db = getFirestore(app);
+const auth = getAuth(app);
 
 const useStyles = createStyles({
 	contentInput: {
@@ -24,11 +32,43 @@ const useStyles = createStyles({
 		borderRadius: '6px',
 		fontFamily: 'poppins',
 		backgroundColor: '#252525',
+		'@media (max-width: 728px)': { height: '500px' },
 	},
 });
 
 const CreatePost = () => {
 	const { classes, cx } = useStyles();
+	const router = useRouter();
+	const [titleInput, setTitleInput] = useState('');
+	const [contentTextbox, setContentTextbox] = useState('');
+
+	const publishPost = async () => {
+		const postDocRef = await setDoc(doc(db, 'Posts', titleInput), {
+			user: {
+				name: 'Oshadha',
+				avatar:
+					'https://image.binance.vision/editor-uploads-original/9c15d9647b9643dfbc5e522299d13593.png',
+			},
+			timestamp: Timestamp.now(),
+			banner: '',
+			title: titleInput,
+			content: contentTextbox,
+			likes: 0,
+			comments: [],
+		});
+
+		toast.success('Published !', {
+			position: 'bottom-right',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'dark',
+		});
+		router.push('/');
+	};
 
 	return (
 		<Grid
@@ -39,10 +79,17 @@ const CreatePost = () => {
 			}}
 		>
 			<Grid.Col span={'auto'}>
-				<input placeholder="New Post Title" className={classes.contentInput} />
+				<input
+					placeholder="New Post Title"
+					className={classes.contentInput}
+					value={titleInput}
+					onChange={(e) => setTitleInput(e.target.value)}
+				/>
 				<textarea
 					placeholder="New Post Content..."
 					className={classes.contentTextbox}
+					value={contentTextbox}
+					onChange={(e) => setContentTextbox(e.target.value)}
 				/>
 			</Grid.Col>
 			<Grid.Col span={2}>
@@ -51,6 +98,7 @@ const CreatePost = () => {
 						width: '100%',
 						'@media (max-width: 728px)': { width: '100px' },
 					}}
+					onClick={publishPost}
 				>
 					Publish
 				</Button>
