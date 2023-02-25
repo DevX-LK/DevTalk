@@ -18,6 +18,7 @@ const PostsData = [
 		title: 'Redux vs Context API: When to use them',
 		content:
 			'Context API is a built-in React tool that does not influence the final bundle size, and is integrated by design.',
+		likes: 3,
 		comments: [
 			{
 				user: {

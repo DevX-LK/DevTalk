@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
-			!localStorage.getItem('user') && router.push('/Register');
+			!localStorage.getItem('user') && router.push('/register');
 		}
 	}, []);
 
