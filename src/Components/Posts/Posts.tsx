@@ -1,9 +1,18 @@
 import { Grid, Text } from '@mantine/core';
 import Image from 'next/image';
-import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
 import { MdComment } from 'react-icons/md';
 import { BsBookmark } from 'react-icons/bs';
 import { createStyles } from '@mantine/core';
+import app from '@/firebase.config';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+const db = getFirestore(app);
+
+// const getPostsFromFirebase = async () => {
+// 	const PostsData = await getDocs(collection(db, 'cities'));
+// 	return PostsData;
+// };
 
 const PostsData = [
 	{
