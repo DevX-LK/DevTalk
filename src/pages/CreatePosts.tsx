@@ -12,7 +12,7 @@ const auth = getAuth(app);
 const useStyles = createStyles({
 	contentInput: {
 		width: '100%',
-		marginBottom: '2rem',
+		marginBottom: '1rem',
 		fontWeight: 600,
 		fontSize: '25px',
 		outline: 'none',
@@ -34,11 +34,23 @@ const useStyles = createStyles({
 		backgroundColor: '#252525',
 		'@media (max-width: 728px)': { height: '500px' },
 	},
+	bannerInput: {
+		width: '30%',
+		padding: '0.2rem 0.2rem 0.2rem 0.5rem',
+		outline: 'none',
+		border: '0',
+		borderRadius: '6px',
+		backgroundColor: '#252525',
+		fontFamily: 'poppins',
+		marginBottom: '0.3rem',
+		'@media (max-width: 728px)': { width: '50%' },
+	},
 });
 
 const CreatePost = () => {
 	const { classes, cx } = useStyles();
 	const router = useRouter();
+	const [BannerUrl, setBannerUrl] = useState('');
 	const [titleInput, setTitleInput] = useState('');
 	const [contentTextbox, setContentTextbox] = useState('');
 
@@ -50,7 +62,7 @@ const CreatePost = () => {
 					'https://image.binance.vision/editor-uploads-original/9c15d9647b9643dfbc5e522299d13593.png',
 			},
 			timestamp: Timestamp.now(),
-			banner: '',
+			banner: BannerUrl,
 			title: titleInput,
 			content: contentTextbox,
 			likes: 0,
@@ -79,6 +91,12 @@ const CreatePost = () => {
 			}}
 		>
 			<Grid.Col span={'auto'}>
+				<input
+					placeholder="Banner url"
+					className={classes.bannerInput}
+					value={BannerUrl}
+					onChange={(e) => setBannerUrl(e.target.value)}
+				/>
 				<input
 					placeholder="New Post Title"
 					className={classes.contentInput}
