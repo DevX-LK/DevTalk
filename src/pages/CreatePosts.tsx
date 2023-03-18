@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 const db = getFirestore(app);
 const auth = getAuth(app);
+const USER_ID = typeof window !== 'undefined' && localStorage.getItem('user');
 
 const useStyles = createStyles({
 	contentInput: {
@@ -81,7 +82,7 @@ const CreatePost = () => {
 		});
 		router.push('/');
 	};
-
+	console.log(USER_ID);
 	return (
 		<Grid
 			sx={{
