@@ -7,11 +7,10 @@ import { createStyles } from '@mantine/core';
 import app from '@/firebase.config';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
+import { getPosts } from '../../lib/api';
 
 const db = getFirestore(app);
-
-const PostsData: any = [];
-const count: any = [];
+let PostsData: any = [];
 
 const useStyles = createStyles({
 	likeContainer: {
@@ -46,21 +45,26 @@ const useStyles = createStyles({
 	},
 });
 
+// export const sendContactForm = async (data) =>
+// 	fetch('/api/contact', {
+// 		method: 'POST',
+// 		body: JSON.stringify(data),
+// 		headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+// 	}).then((res) => {
+// 		if (!res.ok) throw new Error('Failed to send message');
+// 		return res.json();
+// 	});
+
 const Posts = () => {
 	const { classes, cx } = useStyles();
 
 	useEffect(() => {
-		const getPostsFromFirebase = async () => {
-			const colRef = collection(db, 'Posts');
-			const docsSnap = await getDocs(colRef);
-			return await docsSnap.docs.map((doc) =>
-				PostsData.push({ ...doc.data() }),
-			);
+		const getData = async () => {
+			PostsData = await getPosts();
 		};
-
-		getPostsFromFirebase();
+		getData();
 		console.log(PostsData);
-	}, [count]);
+	}, []);
 
 	return (
 		<>
