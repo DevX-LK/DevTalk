@@ -45,25 +45,20 @@ const useStyles = createStyles({
 	},
 });
 
-// export const sendContactForm = async (data) =>
-// 	fetch('/api/contact', {
-// 		method: 'POST',
-// 		body: JSON.stringify(data),
-// 		headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-// 	}).then((res) => {
-// 		if (!res.ok) throw new Error('Failed to send message');
-// 		return res.json();
-// 	});
-
 const Posts = () => {
 	const { classes, cx } = useStyles();
 
 	useEffect(() => {
-		const getData = async () => {
-			PostsData = await getPosts();
-		};
-		getData();
-		console.log(PostsData);
+		const colRef = collection(db, 'Posts');
+		getDocs(colRef)
+			.then((snapshot) => {
+				let posts: any = [];
+				snapshot.docs.forEach((doc) => {
+					posts.push({ ...doc.data(), id: doc.id });
+				});
+				PostsData = posts;
+			})
+			.catch((err) => console.error(err));
 	}, []);
 
 	return (
