@@ -7,7 +7,6 @@ import { createStyles } from '@mantine/core';
 import app from '@/firebase.config';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
-import { getPosts } from '../../lib/api';
 
 const db = getFirestore(app);
 let PostsData: any = [];
