@@ -1,78 +1,15 @@
 import { Grid, Text } from '@mantine/core';
 import Image from 'next/image';
-import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
 import { MdComment } from 'react-icons/md';
 import { BsBookmark } from 'react-icons/bs';
 import { createStyles } from '@mantine/core';
+import app from '@/firebase.config';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { useEffect } from 'react';
 
-const PostsData = [
-	{
-		user: {
-			name: 'Oshadha',
-			avatar:
-				'https://image.binance.vision/editor-uploads-original/9c15d9647b9643dfbc5e522299d13593.png',
-		},
-		timestamp: '26-01-2023',
-		banner:
-			'https://res.cloudinary.com/practicaldev/image/fetch/s--p2vPapJU--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pinwifhk5e3m4kitgb9g.png',
-		title: 'Redux vs Context API: When to use them',
-		content:
-			'Context API is a built-in React tool that does not influence the final bundle size, and is integrated by design.',
-		likes: 3,
-		comments: [
-			{
-				user: {
-					name: 'Shiro',
-					avatar: 'https://api.dicebear.com/5.x/adventurer/svg?seed=Annie',
-				},
-				comment: 'Thanks!',
-			},
-		],
-	},
-	{
-		user: {
-			name: 'Loki',
-			avatar: 'https://forkast.news/wp-content/uploads/2022/03/NFT-Avatar.png',
-		},
-		timestamp: '26-01-2023',
-		banner:
-			'https://res.cloudinary.com/practicaldev/image/fetch/s--iOCyrfWx--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bk7c5cwkik5r0fbbskqs.png',
-		title: 'How to Add JWT Authentication to NestJS Apps',
-		content:
-			'Authentication is an important part of our applications. From time to time, there are many ways to handle authentication. With each requirement, we find the suitable approach to handle authentication.',
-		comments: [
-			{
-				user: {
-					name: 'Shiro',
-					avatar: 'https://api.dicebear.com/5.x/adventurer/svg?seed=Annie',
-				},
-				comment: 'Thanks!',
-			},
-		],
-	},
-	{
-		user: {
-			name: 'Oshadha',
-			avatar:
-				'https://image.binance.vision/editor-uploads-original/9c15d9647b9643dfbc5e522299d13593.png',
-		},
-		timestamp: '26-01-2023',
-		banner:
-			'https://res.cloudinary.com/practicaldev/image/fetch/s--p2vPapJU--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/pinwifhk5e3m4kitgb9g.png',
-		title: 'What is Node js ?',
-		content:
-			'Node Js is a framework for running javascript out of the browser using V8 engine',
-		comments: [
-			{
-				user: {
-					name: 'Shiro',
-					avatar: 'https://api.dicebear.com/5.x/adventurer/svg?seed=Annie',
-				},
-				comment: 'Thanks!',
-			},
-		],
-	},
-];
+const db = getFirestore(app);
+let PostsData: any = [];
 
 const useStyles = createStyles({
 	likeContainer: {
@@ -110,14 +47,27 @@ const useStyles = createStyles({
 const Posts = () => {
 	const { classes, cx } = useStyles();
 
+	useEffect(() => {
+		const colRef = collection(db, 'Posts');
+		getDocs(colRef)
+			.then((snapshot) => {
+				let posts: any = [];
+				snapshot.docs.forEach((doc) => {
+					posts.push({ ...doc.data(), id: doc.id });
+				});
+				PostsData = posts;
+			})
+			.catch((err) => console.error(err));
+	}, []);
+
 	return (
 		<>
-			{PostsData.map((post) => (
+			{PostsData.map((post: any) => (
 				<Grid.Col
 					span={'auto'}
 					sx={{ backgroundColor: '#171717', borderRadius: '8px' }}
 					mb="lg"
-					key={post.title}
+					key={Math.random()}
 				>
 					<Grid.Col span={12} sx={{ display: 'flex', alignItems: 'center' }}>
 						<Image
@@ -132,7 +82,7 @@ const Posts = () => {
 								{post.user.name}
 							</Text>
 							<Text sx={{ fontSize: '10px', fontWeight: 500, opacity: 0.5 }}>
-								{post.timestamp}
+								2023-02-03
 							</Text>
 						</div>
 					</Grid.Col>
