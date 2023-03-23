@@ -52,6 +52,11 @@ const Login = () => {
 								'user',
 								JSON.stringify(userCredentials.user),
 							);
+						typeof window !== 'undefined' &&
+							localStorage.setItem(
+								'current_user_id',
+								JSON.stringify(userCredentials.user.uid),
+							);
 						toast.success('Logged In!', {
 							position: 'bottom-right',
 							autoClose: 5000,
