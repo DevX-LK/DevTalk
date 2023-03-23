@@ -20,7 +20,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
-			!localStorage.getItem('user') && router.push('/register');
+			!localStorage.getItem('user') &&
+				router.push(
+					{
+						pathname: router.pathname,
+						query: { confirm: true },
+					},
+					'/Register',
+				);
 		}
 	}, []);
 
