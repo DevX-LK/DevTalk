@@ -1,14 +1,22 @@
 import { Button, Grid, createStyles } from '@mantine/core';
 import { useState } from 'react';
 import app from '@/firebase.config';
-import { getFirestore, doc, setDoc, Timestamp } from 'firebase/firestore';
+import {
+	getFirestore,
+	doc,
+	setDoc,
+	Timestamp,
+	getDoc,
+} from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 const db = getFirestore(app);
 const auth = getAuth(app);
-const USER_ID = typeof window !== 'undefined' && localStorage.getItem('user');
+const USER_ID =
+	typeof window !== 'undefined' &&
+	JSON.parse(localStorage.getItem('current_user_id') || '');
 
 const useStyles = createStyles({
 	contentInput: {
@@ -55,12 +63,18 @@ const CreatePost = () => {
 	const [titleInput, setTitleInput] = useState('');
 	const [contentTextbox, setContentTextbox] = useState('');
 
+	// const user_details =
+	// console.log(user_details);
+
 	const publishPost = async () => {
+		const docRef = doc(db, 'Users', USER_ID);
+		const docSnap = await getDoc(docRef);
+
 		const postDocRef = await setDoc(doc(db, 'Posts', titleInput), {
 			user: {
-				name: 'Oshadha',
-				avatar:
-					'https://image.binance.vision/editor-uploads-original/9c15d9647b9643dfbc5e522299d13593.png',
+				uid: USER_ID,
+				name: docSnap.exists() && docSnap.data().name,
+				avatar: docSnap.exists() && docSnap.data().profileImgUrl,
 			},
 			timestamp: Timestamp.now(),
 			banner: BannerUrl,
@@ -82,7 +96,6 @@ const CreatePost = () => {
 		});
 		router.push('/');
 	};
-	console.log(USER_ID);
 	return (
 		<Grid
 			sx={{

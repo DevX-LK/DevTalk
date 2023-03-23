@@ -1,6 +1,10 @@
 import { Button, createStyles, Input } from '@mantine/core';
 import { useForm } from 'react-hook-form';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	updateProfile,
+} from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import app from '@/firebase.config';
 import { useRouter } from 'next/router';
@@ -58,18 +62,24 @@ const Signup = () => {
 			onSubmit={handleSubmit((data: any) => {
 				createUserWithEmailAndPassword(auth, data.email, data.password)
 					.then(async (userCredentials: any) => {
-						const userDocRef = await setDoc(
-							doc(db, 'Users', userCredentials.user.uid),
-							{
-								_id: userCredentials.user.uid,
-								email: userCredentials.user.email,
-								// token: generateToken(userCredentials.user.uid),
-							},
-						);
+						await setDoc(doc(db, 'Users', userCredentials.user.uid), {
+							_id: userCredentials.user.uid,
+							email: userCredentials.user.email,
+							name: data.name,
+							profileImgUrl:
+								'https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg',
+							// token: generateToken(userCredentials.user.uid),
+						});
+
 						typeof window !== 'undefined' &&
 							localStorage.setItem(
 								'user',
 								JSON.stringify(userCredentials.user),
+							);
+						typeof window !== 'undefined' &&
+							localStorage.setItem(
+								'current_user_id',
+								JSON.stringify(userCredentials.user.uid),
 							);
 
 						toast.success('User created!', {
