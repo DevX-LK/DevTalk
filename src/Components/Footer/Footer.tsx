@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
 		borderTop: `1px solid ${
 			theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
 		}`,
-		[theme.fn.smallerThan('sm')]: {
+		'@media (max-width: 728px)': {
 			backgroundColor: '#171717',
 		},
 	},
