@@ -7,6 +7,7 @@ import { createStyles } from '@mantine/core';
 import app from '@/firebase.config';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 const db = getFirestore(app);
 let PostsData: any = [];
@@ -102,7 +103,9 @@ const Posts = () => {
 						<Text
 							sx={{ fontSize: '24px', fontWeight: 650, marginLeft: '2.5rem' }}
 						>
-							{post.title}
+							<Link href={`/post/${post.id}`} legacyBehavior>
+								<a>{post.title}</a>
+							</Link>
 						</Text>
 					</Grid.Col>
 					<Grid.Col
