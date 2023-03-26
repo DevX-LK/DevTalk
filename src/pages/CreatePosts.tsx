@@ -11,6 +11,7 @@ import {
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -69,32 +70,36 @@ const CreatePost = () => {
 	const publishPost = async () => {
 		const docRef = doc(db, 'Users', USER_ID);
 		const docSnap = await getDoc(docRef);
+		try {
+			const postDocRef = await setDoc(doc(db, 'Posts', uuidv4()), {
+				user: {
+					uid: USER_ID,
+					name: docSnap.exists() && docSnap.data().name,
+					avatar: docSnap.exists() && docSnap.data().profileImgUrl,
+				},
+				timestamp: Timestamp.now(),
+				banner: BannerUrl,
+				title: titleInput,
+				content: contentTextbox,
+				likes: 0,
+				comments: [],
+			});
 
-		const postDocRef = await setDoc(doc(db, 'Posts', titleInput), {
-			user: {
-				uid: USER_ID,
-				name: docSnap.exists() && docSnap.data().name,
-				avatar: docSnap.exists() && docSnap.data().profileImgUrl,
-			},
-			timestamp: Timestamp.now(),
-			banner: BannerUrl,
-			title: titleInput,
-			content: contentTextbox,
-			likes: 0,
-			comments: [],
-		});
-
-		toast.success('Published !', {
-			position: 'bottom-right',
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: 'dark',
-		});
-		router.push('/');
+			toast.success('Published !', {
+				position: 'bottom-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'dark',
+			});
+			router.push('/');
+		} catch (error) {
+			toast.error('All fields are required..!');
+			console.log(error);
+		}
 	};
 	return (
 		<Grid

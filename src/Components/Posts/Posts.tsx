@@ -7,11 +7,19 @@ import { createStyles } from '@mantine/core';
 import app from '@/firebase.config';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 const db = getFirestore(app);
 let PostsData: any = [];
 
 const useStyles = createStyles({
+	container: {
+		height: '85vh',
+		overflow: 'scroll',
+		'&::-webkit-scrollbar': {
+			display: 'none',
+		},
+	},
 	likeContainer: {
 		marginLeft: '2.5rem',
 		padding: '4px',
@@ -60,9 +68,13 @@ const Posts = () => {
 			.catch((err) => console.error(err));
 	}, []);
 
+	const PostDataSorted = PostsData.sort((x: any, y: any) => {
+		return y.timestamp.toDate() - x.timestamp.toDate();
+	});
+
 	return (
-		<>
-			{PostsData.map((post: any) => (
+		<div className={classes.container}>
+			{PostDataSorted.map((post: any) => (
 				<Grid.Col
 					span={'auto'}
 					sx={{ backgroundColor: '#171717', borderRadius: '8px' }}
@@ -82,7 +94,7 @@ const Posts = () => {
 								{post.user.name}
 							</Text>
 							<Text sx={{ fontSize: '10px', fontWeight: 500, opacity: 0.5 }}>
-								2023-02-03
+								{post.timestamp.toDate().toDateString()}
 							</Text>
 						</div>
 					</Grid.Col>
@@ -91,7 +103,9 @@ const Posts = () => {
 						<Text
 							sx={{ fontSize: '24px', fontWeight: 650, marginLeft: '2.5rem' }}
 						>
-							{post.title}
+							<Link href={`/post/${post.id}`} legacyBehavior>
+								<a>{post.title}</a>
+							</Link>
 						</Text>
 					</Grid.Col>
 					<Grid.Col
@@ -123,7 +137,7 @@ const Posts = () => {
 					</Grid.Col>
 				</Grid.Col>
 			))}
-		</>
+		</div>
 	);
 };
 
