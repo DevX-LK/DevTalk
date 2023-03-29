@@ -5,7 +5,12 @@ import { MdComment } from 'react-icons/md';
 import { BsBookmark } from 'react-icons/bs';
 import { createStyles } from '@mantine/core';
 import app from '@/firebase.config';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import {
+	getFirestore,
+	collection,
+	getDocs,
+	onSnapshot,
+} from 'firebase/firestore';
 import { useEffect } from 'react';
 import Link from 'next/link';
 
@@ -57,16 +62,14 @@ const Posts = () => {
 
 	useEffect(() => {
 		const colRef = collection(db, 'Posts');
-		getDocs(colRef)
-			.then((snapshot) => {
-				let posts: any = [];
-				snapshot.docs.forEach((doc) => {
-					posts.push({ ...doc.data(), id: doc.id });
-				});
-				PostsData = posts;
-			})
-			.catch((err) => console.error(err));
-	}, []);
+		onSnapshot(colRef, (snapshot) => {
+			let posts: any = [];
+			snapshot.docs.forEach((doc) => {
+				posts.push({ ...doc.data(), id: doc.id });
+			});
+			PostsData = posts;
+		});
+	});
 
 	const PostDataSorted = PostsData.sort((x: any, y: any) => {
 		return y.timestamp.toDate() - x.timestamp.toDate();
