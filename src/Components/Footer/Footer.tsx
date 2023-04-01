@@ -11,15 +11,15 @@ import { FaDiscord } from 'react-icons/fa';
 const useStyles = createStyles((theme) => ({
 	footer: {
 		marginTop: 100,
-		paddingTop: theme.spacing.xl * 2,
-		paddingBottom: theme.spacing.xl * 2,
+		paddingTop: theme.spacing.xl * 1.5,
+		paddingBottom: theme.spacing.xl * 1.5,
 		backgroundColor: '#000',
-		borderTop: `1px solid ${
+		borderTop: `3px solid ${
 			theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
 		}`,
-		'@media (max-width: 728px)': {
-			backgroundColor: '#171717',
-		},
+		// '@media (max-width: 728px)': {
+		// 	backgroundColor: '#171717',
+		// },
 	},
 
 	logo: {

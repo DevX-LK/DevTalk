@@ -104,7 +104,14 @@ const Posts = () => {
 
 					<Grid.Col span={12}>
 						<Text
-							sx={{ fontSize: '24px', fontWeight: 650, marginLeft: '2.5rem' }}
+							sx={{
+								fontSize: '24px',
+								fontWeight: 650,
+								marginLeft: '2.5rem',
+								'&:hover': {
+									color: 'rgb(23, 90, 140)',
+								},
+							}}
 						>
 							<Link href={`/post/${post.id}`} legacyBehavior>
 								<a>{post.title}</a>
