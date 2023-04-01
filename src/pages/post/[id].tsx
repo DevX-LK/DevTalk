@@ -3,15 +3,18 @@ import { getFirestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import app from '@/firebase.config';
 
 const db = getFirestore(app);
+let PostData: any = {};
 
 const PostPage = () => {
 	const router = useRouter();
 	const postId = router.query.id;
 
 	const docRef = doc(db, 'Posts', `${postId}`);
-	onSnapshot(docRef, (doc) => {
-		console.log(doc.data());
+	onSnapshot(docRef, async (doc) => {
+		PostData = { ...doc.data() };
 	});
+
+	setTimeout(() => console.log(PostData), 1000);
 
 	// const docSnap = await getDoc(docRef);
 
