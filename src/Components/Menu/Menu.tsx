@@ -44,17 +44,22 @@ const Menu = () => {
 					}}
 					key={link.label}
 				>
-					{link.label}
-					<Text
-						sx={{
-							fontSize: '20px',
-							display: 'flex',
-							alignItems: 'center',
-							marginLeft: '4px',
-						}}
+					<Link
+						href={link.link}
+						style={{ display: 'flex', alignItems: 'center' }}
 					>
-						{link.icon}
-					</Text>
+						{link.label}
+						<Text
+							sx={{
+								fontSize: '20px',
+								display: 'flex',
+								alignItems: 'center',
+								marginLeft: '4px',
+							}}
+						>
+							{link.icon}
+						</Text>
+					</Link>
 				</Button>
 			))}
 		</Grid.Col>
